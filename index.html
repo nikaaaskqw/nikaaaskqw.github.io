@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>360° Карта Семи Чудес Света</title>
+  
+<link rel="stylesheet" href="style.css"> <!body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background:#ffe6e6;
+color: #fff
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffe6e6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#map-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  cursor: grab;
+}
+
+#panorama-view {
+  width: 100%;
+  height: 100%;
+}
+
+#panorama-image {
+  width: auto; 
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.marker {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.marker:hover {
+  background-color: darkred;
+}
+
+#legend {
+  margin-top: 20px;
+}
+
+#legend ul {
+  list-style: none;
+  padding: 0;
+}
+
+#legend li {
+  margin-bottom: 10px;
+  cursor: pointer;
+}>
+</head>
+<body>
+
+  <div class="container">
+
+    <h1><center>360-градусный виртуальный тур по 7 Чудесам Света</center></h1>
+
+ <span class="wonder-description"> <font size="4.9"><center>Семь чудес света - условный список выдающихся 
+произведений архитектуры и скульптуры, составленный в эллинистическую эпоху.</center><p style ="text-indent:15px;"> 
+Название «Семь чудес света» появилось благодаря древнегреческому учёному Филону Александрийскому,
+ жившему в IV веке до н. э. Он составил первый вариант списка, в который включил семь объектов.
+ Выбор числа 7 связан с представлениями о полноте, законченности и совершенстве.
+ В Древней Греции семёрка считалась священным числом бога Аполлона.</p> Однако большинство из семи 
+чудес света не сохранилось до наших дней. Это разрушение произошло по разным причинам: войны, природные
+ катастрофы, забвение или просто время, которое делает своё дело. В связи с этим возникла идея создать 
+новый список семи чудес света, чтобы подчеркнуть достижения человечества в более последние эпохи.
+«Новые чудеса света» - проект, целью которого стал поиск современных чудес света. Организован 
+некоммерческой организацией New Open World Corporation по инициативе швейцарца Бернара Вебера.
+ Выборы новых чудес света из известных архитектурных сооружений мира происходили через SMS, 
+телефон или интернет. Итог был объявлен 7 июля 2007 года (07-07-2007). В этот день в столице 
+Португалии Лиссабоне были названы новые чудеса света:</font></span>
+
+    <div id="map-container">
+
+      <div id="panorama-view">
+        <center><img src="photo.7.jpg"></center>
+      </div>
+
+      <div id="markers">
+        <!document.addEventListener('DOMContentLoaded', function() {
+  const panoramaImage = document.getElementById('panorama-image');
+  const mapContainer = document.getElementById('map-container');
+  const markersContainer = document.getElementById('markers');
+  const legendItems = document.querySelectorAll('#legend li');
+
+  const wondersData = {
+    great_pyramid: {
+      imageUrl: 'images/great_pyramid',
+      x: 0.2,
+      y: 0.5
+    },
+    hanging_gardens: {
+      imageUrl: 'images/hanging_gardens.jpg',
+      x: 0.4,
+      y: 0.3
+    },
+    statue_zeus: {
+      imageUrl: 'images/statue_zeus.jpg',
+      x: 0.6,
+      y: 0.7
+    },
+    temple_artemis: {
+      imageUrl: 'images/temple_artemis.jpg',
+      x: 0.8,
+      y: 0.2
+    },
+    mausoleum_halicarnassus: {
+      imageUrl: 'images/mausoleum_halicarnassus.jpg',
+      x: 0.1,
+      y: 0.8
+    },
+    colossus_rhodes: {
+      imageUrl: 'images/colossus_rhodes.jpg',
+      x: 0.3,
+      y: 0.1
+    },
+    lighthouse_alexandria: {
+      imageUrl: 'images/lighthouse_alexandria.jpg',
+      x: 0.7,
+      y: 0.4
+    }
+  };
+
+
+  function createMarker(wonder, data) {
+    const marker = document.createElement('div');
+    marker.classList.add('marker');
+    marker.dataset.wonder = wonder;
+
+    const markerX = data.x * mapContainer.offsetWidth;
+    const markerY = data.y * mapContainer.offsetHeight;
+
+    marker.style.left = markerX - marker.offsetWidth / 2 + 'px';
+    marker.style.top = markerY - marker.offsetHeight / 2 + 'px';
+
+    marker.addEventListener('click', function() {
+      panoramaImage.src = data.imageUrl;
+    });
+
+    return marker;
+  }
+
+  for (const wonder in wondersData) {
+    const marker = createMarker(wonder, wondersData[wonder]);
+    markersContainer.appendChild(marker);
+  }
+
+  let isDragging = false;
+  let startX = 0;
+
+  mapContainer.addEventListener('mousedown', (e));
+  
+      </div>
+
+    </div>
+
+    <div id="legend">
+      <h2>В новый список Чудес света входят:</h2>
+      <ul>
+        <li data-wonder="great_pyramid">
+          <span class="wonder-name"><font size="5">Египетские пирамиды</span></font>
+
+<center><iframe src="https://udoba.org/h5p/embed/201838" width="695px" height="416px" scrolling="auto" 
+frameborder="1" align="center"></iframe></center>
+          
+<span class="wonder-description"><p><font size="4,9"><center>Единственное сохранившееся чудо Древнего мира.</p><p>
+ Зачем воздвигали пирамиды? Фараоны считали, что после смерти их ждет новая жизнь и они станут богами.
+ В эту будущую жизнь просто необходимо взять массу нужных вещей - поэтому усыпальницы были такими
+ огромными.</p><p> Хоронили фараонов с размахом и большими почестями, а в последний путь «снаряжали» 
+очень основательно: клали драгоценности, оружие, одежду. Самая древняя из известных и сохранившихся
+ пирамид находится в Саккаре — это пирамида Джосера. Ее возвели около 2650 г. до н. э. 
+Самые узнаваемые пирамиды Гизы (плато в пригороде столицы Египта — Каира) создали во время 
+правления IV–VI династий фараонов, это 2600–2200 годы до н. э.</p></span></font></center>
+
+        </li>
+        <li data-wonder="hanging_gardens">
+          <span class="wonder-name"><font size="5">Колизей в Риме</span></font>
+
+<p><center><iframe src="https://udoba.org/h5p/embed/201922" width="695px" 
+height="416px" scrolling="auto" frameborder="1" align="center"></center></iframe></p>
+
+          <span class="wonder-description"><p><font size="4,9">Колизей в Риме - амфитеатр, памятник 
+архитектуры Древнего Рима, наиболее известное и одно из самых грандиозных сооружений Древнего мира, 
+сохранившихся до нашего времени. Основное строительство амфитеатра пришлось на 72–80 годы н. э.
+ В разное время он вмещал 50–80 тысяч зрителей. Здесь происходили гладиаторские бои, казни,
+ театрализованные представления. Под ареной находилась система коридоров, тоннелей, подъёмников и 
+помещений для содержания животных и гладиаторов.</p></span></font>
+        </li>
+        <li data-wonder="statue_zeus">
+          <span class="wonder-name"><font size="5">Великая китайская стена</span></font>
+
+<p><center><iframe src="https://udoba.org/h5p/embed/201981" name="iframe985426" width="695px" height="416px" scrolling="auto" 
+frameborder="1" align="center"></iframe></p></center>
+
+          <span class="wonder-description"><p><font size="4,9"><center>Великая китайская стена- разделительная 
+стена длиной почти 9000 км (полная длина - 21,2 тыс. км), построенная в древнем Китае и являющаяся
+ крупнейшим памятником архитектуры. Великая Китайская стена начала строиться в III веке до н. э., 
+когда Китай населяли разрозненные племена, а с севера их постоянно одолевали хунны. Император Цинь 
+Шихуанди смог объединить несколько народностей и создать государственность. Для защиты подданных он 
+приказал с северной стороны земель сделать огромные насыпные валы, которые стали бы естественной 
+преградой для врагов. В XIV–XVII веках при династии Мин появились главные укрепления. Некоторые
+ участки стены снесли и выстроили заново. Пришедшая следом династия Цинь забросила этот проект.
+ На многие годы все стройки и реставрации заморозили, поэтому стены стали разрушаться от дождей и
+ ветра. В 1984 году запустили проект по реставрации и перестройке объекта. Сегодня туристы видят 
+его усовершенствованную и ухоженную версию. Однако сохранить удалось не все участки.</p></span></font></center>
+
+        </li>
+        <li data-wonder="temple_artemis">
+          <span class="wonder-name"><font size="5">Чичен-Ица</span></font>
+<p><center><iframe src="https://udoba.org/h5p/embed/202789" name="iframe985426" width="695px" height="416px" 
+scrolling="auto" frameborder="1" align="center"></iframe></center></p>
+
+          <span class="wonder-description"><p><font size="4,9"><center>Чичен-Ица-город на полуострове Юкатан на юге Мексики, 
+основанный около 455 года н. э. Чичен-Ица был предназначен для правителей и жрецов с их семьями, 
+и десятки тысяч индейцев майя принимали участие в его строительстве. В X веке после неожиданного и 
+необъяснимого краха могущественной империи Чичен-Ица стал столицей легендарного народа тольтеков. 
+Но тольтекское правление длилось недолго, и в 1178 году восставшие племена майя вновь захватили свои
+ прежние владения. В конце XII века город полностью опустел: его обитатели навсегда покинули обжитое
+ пространство. Что именно произошло - загадка истории. Европейские завоеватели – испанцы - быстро 
+стали хозяевами положения, и оставшиеся в живых немногочисленные представители племён оказались
+ рабами. Сам Чичен-Ица скрывался в мексиканских джунглях, пока в 1920 году не стал случайной находкой
+ археологов</p></span></font></center>
+        </li>
+        <li data-wonder="mausoleum_halicarnassus">
+          <span class="wonder-name"><font size="5">Петра</span></font>
+
+<p><center><iframe src="https://udoba.org/h5p/embed/202796" name="iframe985426" width="695px" height="416px" 
+scrolling="auto" frameborder="1" align="center"></iframe></center></p>
+
+          <span class="wonder-description"><p><font size="4,9"><center>Петра-древний город на юге Иордании, в долине Аравы,
+ на востоке от города Уэйл. Ранее был столицей Идумеи, позже столицей Набатейского царства.
+ Расположен на высоте более 900 м над уровнем моря и 660 м над окружающей местностью, в узком 
+каньоне Сик. В город можно попасть только через одну расщелину скалы под названием Сик. Петра 
+известна своими уникальными каменными строениями, высеченными в скалах розового песчаника. В городе
+ есть высеченные фасады зданий, храмы, мавзолеи и жилища. Главное сооружение — Сокровищница 
+(Эль-Хазне), огромная постройка, вырубленная в скале и украшенная колоннами, фигурами и узорами.
+ Сейчас это археологический заповедник и музей под открытым небом.</p></span></font></center>
+
+        </li>
+
+        <li data-wonder="colossus_rhodes">
+
+          <span class="wonder-name"><font size="5">Статуя Христа-Искупителя</span></font>
+
+<p><center><iframe src="https://udoba.org/h5p/embed/203668" name="iframe985426" width="695px" height="416px"
+ scrolling="auto" frameborder="1" align="center"></iframe></p</center>
+
+          <span class="wonder-description"><p><font size="4,9"><center>Идея создания статуи Христа-Искупителя появилась в 
+1859 году. Но из-за нехватки денег на реализацию этого проекта его отложили. В 1921 году в честь
+ столетия независимости Бразилии от Португалии принято решение о возведении статуи. Идея заключалась
+ в строительстве нового символа христианства и свободы нации. Скульптура строилась на средства жителей 
+Рио-де-Жанейро и местной церковной общины. Кроме этого, была организована благотворительная акция
+ «Неделя памятника», на которой местные жители собрали более двух с половиной миллионов реалов. 
+Первоначальный эскиз статуи создал бразильский художник Карлос Освальд. По его задумке фигура, 
+из-за раскинутых в сторону рук, должна была напоминать католический крест. Строительство,
+ начавшееся в 1922 году, должно было быть завершено за год, но длилось девять лет. 12 октября 1931
+ года состоялась торжественная церемония открытия статуи Христа-Искупителя и её освящение. В 1965 
+году Папа Римский Павел VI провёл повторное освящение статуи.</p></span></font></center>
+
+        </li>
+
+        <li data-wonder="lighthouse_alexandria">
+
+          <span class="wonder-name"><font size="5">Тадж-Махал</span></font>
+
+<p><center><iframe src="https://udoba.org/h5p/embed/201992" name="iframe985426" width="695px" height="416px" 
+scrolling="auto" frameborder="1" align="center"></iframe></p></center>
+
+          <span class="wonder-description"><p><font size="4,9"><center>История Тадж-Махала рассказывает о любви Шах-Джахана,
+ короля Великих Моголов, к своей жене Мумтаз-Махал. В 1631 году женщина вынашивала 14-го ребёнка, 
+однако радостное событие обернулось большим горем: жена падишаха не пережила очередные роды. 
+Шах-Джахан так горевал об утрате, что даже отдал приказ забальзамировать тело супруги и объявил 
+траур на два года, а когда пришёл в себя, решил построить роскошную усыпальницу, чтобы память о 
+Мумтаз-Махал жила вечно. Строительство дворца началось в 1631 году в декабре. Постройка центрального 
+мавзолея закончилась в 1648 году, а спустя 5 лет закончили строительство всего комплекса. В дальнейшем 
+здесь же похоронили и самого императора, хотя изначально он планировал построить для себя такую же
+ мечеть, но только из чёрного мрамора.</p></span></font></center>
+
+        </li>
+
+<li data-wonder="matchu_pikchu">
+
+<span class="wonder-name"><font size="5">Мачу-Пикчу</span></font>
+
+<p><center><iframe src="https://udoba.org/h5p/embed/203673" name="iframe985426" width="695px" height="416px" 
+scrolling="auto" frameborder="1" align="center"></iframe></p>></center>
+
+<span class="wonder-description"><p><font size="4,9"><center>Мачу-Пикчу-древний город в Южной Америке, находящийся на 
+территории современного государства Перу. Расположен на вершине горного хребта на высоте 2400 метров 
+над уровнем моря, господствующего над долиной реки Урубамбы. Мачу-Пикчу был построен в середине XV 
+века во времена расцвета великой империи инков. Считается, что крепость была основана создателем 
+империи инков Пачакутеком Юпанки и была одной из его резиденций. Экспансия конкистадоров в XVI веке
+ заставила жителей Мачу-Пикчу бросить свои дома и уйти на север, где среди тропических лесов 
+располагался последний оплот инков - Вилькабамба. По легенде, Мачу-Пикчу опустел в ту же ночь, 
+когда испанцы высадились на берег Латинской Америки. Вплоть до начала XX века древний город оставался
+ забытым и заброшенным, пока американский профессор Хайрам Бингем не отправился в экспедицию по 
+Латинской Америке в поисках легендарного золота инков. Отыскать останки поселения инков помогли
+ местные жители, и в 1911 году Мачу-Пикчу был вновь открыт миру.</p></span></font></center>
+
+</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
